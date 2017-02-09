@@ -14,7 +14,7 @@ function Get-SecurityPolicy
             [Parameter(Mandatory=$false,
                     ValueFromPipelineByPropertyName=$true,
                     Position=0)]
-            [string[]]$Setting = @('*'),
+            [string[]]$Setting = '*',
             [Parameter(Mandatory=$false,
             Position=0)]
             [ValidateSet('Unicode', 'System Access', 'Event Audit', 'Privilege Rights')]
@@ -23,6 +23,11 @@ function Get-SecurityPolicy
 
         Begin
         {
+        if((Test-IsAdmin) -eq $false)
+            {
+                Write-Warning "Cant run without admin privliges"
+                return
+            }
         $defaultProperties = @('Setting', 'Value')
         $defaultDisplayPropertySet = New-Object System.Management.Automation.PSPropertySet('DefaultDisplayPropertySet',[string[]]$defaultProperties)
         $PSStandardMembers = [System.Management.Automation.PSMemberInfo[]]@($defaultDisplayPropertySet)

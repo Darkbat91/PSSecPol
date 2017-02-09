@@ -8,7 +8,7 @@ function Get-SID
         }
     catch
         {
-        Write-Warning "No User: `'$username``' found on `'$env:COMPUTERNAME`'"
+        Write-Verbose "No User: `'$username``' found on `'$env:COMPUTERNAME`'"
         $SID = $user
         }
     return $sid

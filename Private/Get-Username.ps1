@@ -9,7 +9,7 @@ function Get-Username
     }
     catch
     {
-    Write-Warning "No SID: `'$sid`' found on `'$env:COMPUTERNAME`'"
+    Write-Verbose "No SID: `'$sid`' found on `'$env:COMPUTERNAME`'"
     $user = $SID
     }
     if($showdomain)

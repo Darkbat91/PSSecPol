@@ -39,38 +39,54 @@ function Set-SecurityPolicy
 
     Begin
     {
+    [regex]$sidregex = "^S-\d-\d+-(\d+-){1,14}\d+$"
+    if((Test-IsAdmin) -eq $false)
+        {
+            Write-Warning "Cant run without admin privliges"
+            return
+        }
     $Policy = Get-SecurityObject
     }
     Process
     {
+        if($Value -notmatch $sidregex)
+            {
+                $value = get-sid -username $Value
+            }
         #Verify Setting is correct
         $Settingval = $null
         $Settingval = $Policy | Where-Object -FilterScript {$_.setting -eq $Setting}
         if($Settingval -eq $null -and $AddSetting -ne $true)
             {
-            Write-Error "Security Policy `'$value`' Not Valid!"
+            Write-Error "Security Policy `'$Setting`' Not Valid!"
             continue
             }
         else
             {
             if($Add) # If add we append the value
                 {
+                    if($Settingval[0].value -contains $Value)
+                        {
+                            Write-Error -Message "$Value Already exists in $($Settingval.Setting)"
+                            return
+                        }
                 $Settingval[0].Value += $Value
                 }
             elseif($AddSetting) # if Add setting then we have to create it new
             {
             $Props = @{
-            'heading' = $Heading
-            'Setting' = $Setting
-            'Value' = $Value
-            }
+                'heading' = $Heading
+                'Setting' = $Setting
+                'Value' = $Value
+                }
+
             $Policy += New-Object -TypeName PSOBJECT -Property $props
 
             }
             else
-            {
-            $Settingval[0].Value = $Value
-            }
+                {
+                $Settingval[0].Value = $Value
+                }
             }
 
     }
