@@ -7,6 +7,21 @@ function Set-AuditPolicy
    Will Set a Value wihin the Audit Policy to the defined policy
 .Example
     Set-AuditPolicy -Policy 'Credential Validation' -Setting SuccessandFailure
+.NOTES
+    Author: Micah
+    Creation Date: 20170214
+    Last Modified: 20170214
+    Version: 0.0.1
+    -----------------------------------------------------------------------------------------------------------------
+    CHANGELOG
+    -----------------------------------------------------------------------------------------------------------------
+    0.0.1 Initial Release
+
+    -----------------------------------------------------------------------------------------------------------------
+    TODO
+    -----------------------------------------------------------------------------------------------------------------
+    1. Create Get-AuditPolicy
+    2. Pre-Populate common settings
 #>
 param(
 $Policy,
