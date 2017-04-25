@@ -1,5 +1,13 @@
 function Set-AuditPolicy
 {
+<#
+.Synopsis
+   Sets an Object of the Audit Policy
+.DESCRIPTION
+   Will Set a Value wihin the Audit Policy to the defined policy
+.Example
+    Set-AuditPolicy -Policy 'Credential Validation' -Setting SuccessandFailure
+#>
 param(
 $Policy,
 [ValidateSet('Failure', 'Success', 'SuccessandFailure', 'NoAuditing')]
@@ -41,11 +49,10 @@ switch ($Setting)
     Default {throw 'Invalid Setting'}
 }
 
-$Audit | Where-Object {$_.subcategory -eq $Policy} | foreach {$_.'Inclusion Setting' = $SettingVal; $_.'setting value' = $Settingint}
+$Audit | Where-Object {$_.subcategory -eq $Policy} | ForEach-Object {$_.'Inclusion Setting' = $SettingVal; $_.'setting value' = $Settingint}
 
 $Audit | Export-Csv -Path $configfile -Force -NoTypeInformation
 
-Write-Host 'check'
 #region Powershell Cleanup
 $raw = Get-Content -Path $configfile
 $raw.Replace('"','') | Out-File $configfile -Encoding utf8
@@ -54,6 +61,5 @@ $raw.Replace('"','') | Out-File $configfile -Encoding utf8
 
 sleep 2
 Start-Process -FilePath Auditpol -ArgumentList "/restore /file:$configfile" -Wait -NoNewWindow
-Write-Host 'check'
 Remove-Item -Path $configfile -Force
 }
