@@ -1,15 +1,13 @@
-function Get-SID
-{
+function Get-SID {
     #Helper to Get SID from username
     param([string]$username)
-    try{
+    try {
         $Account = New-Object System.Security.Principal.NTAccount($username)
         $Sid = $Account.Translate([System.Security.Principal.SecurityIdentifier]).Value
-        }
-    catch
-        {
+    }
+    catch {
         Write-Verbose "No User: `'$username``' found on `'$env:COMPUTERNAME`'"
         $SID = $user
-        }
+    }
     return $sid
 }

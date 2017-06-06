@@ -1,23 +1,19 @@
-function Get-Username
-{
+function Get-Username {
     #Helper to Get username from SID
     param([string]$SID,
-    [switch]$ShowDomain)
-    try{
-    $sidobj = New-Object System.Security.Principal.SecurityIdentifier($sid)
-    $user = $sidobj.Translate( [System.Security.Principal.NTAccount]).Value
+        [switch]$ShowDomain)
+    try {
+        $sidobj = New-Object System.Security.Principal.SecurityIdentifier($sid)
+        $user = $sidobj.Translate( [System.Security.Principal.NTAccount]).Value
     }
-    catch
-    {
-    Write-Verbose "No SID: `'$sid`' found on `'$env:COMPUTERNAME`'"
-    $user = $SID
+    catch {
+        Write-Verbose "No SID: `'$sid`' found on `'$env:COMPUTERNAME`'"
+        $user = $SID
     }
-    if($showdomain)
-        {
+    if ($showdomain) {
         return $user
-        }
-    else
-        {
+    }
+    else {
         return ($user -split '\\')[1]
-        }
+    }
 }
