@@ -2,12 +2,27 @@ function Get-SecurityPolicy
     {
         <#
         .Synopsis
-        Returns the Vaules of specific Security Items
+            Returns the Vaules of specific Security Items
         .DESCRIPTION
-        Will return specific secury Items or All Items within a specific heading
+            Will return specific secury Items or All Items within a specific heading
+        .NOTES
+            Author: Micah
+            Creation Date: 20170208
+            Last Modified: 20170208
+            Version: 0.0.1
+            -----------------------------------------------------------------------------------------------------------------
+            CHANGELOG
+            -----------------------------------------------------------------------------------------------------------------
+            0.0.1 Initial Release
+
+            -----------------------------------------------------------------------------------------------------------------
+            TODO
+            -----------------------------------------------------------------------------------------------------------------
+            1. Improve handling of Empty Settings.
+            2. Pre-Populate common settings
         #>
         [CmdletBinding()]
-        [Alias('gspv')]
+        [Alias('gsp')]
         Param
         (
             # Which Setting or settings are desired to be returned Can be * for all
