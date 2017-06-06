@@ -9,9 +9,8 @@
 {
     // See https://go.microsoft.com/fwlink/?LinkId=733558
     // for the documentation about the tasks.json format
-	"version": "0.1.0",
-
-	// Start PowerShell
+    "version": "2.0.0",
+    // Start PowerShell
     "windows": {
         "command": "${env.windir}\\sysnative\\windowspowershell\\v1.0\\PowerShell.exe"
     },
@@ -21,17 +20,15 @@
     "osx": {
         "command": "/usr/local/bin/powershell"
     },
-
-	// The command is a shell script
-	"isShellCommand": true,
-
-	// Show the output window always
-	"showOutput": "always",
-
+    // The command is a shell script
+    "isShellCommand": true,
+    // Show the output window always
+    "showOutput": "always",
     "args": [
-        "-NoProfile", "-ExecutionPolicy", "Bypass"
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass"
     ],
-
     // Associate with test task runner
     "tasks": [
         {
@@ -46,7 +43,9 @@
             "problemMatcher": [
                 {
                     "owner": "powershell",
-                    "fileLocation": ["absolute"],
+                    "fileLocation": [
+                        "absolute"
+                    ],
                     "severity": "error",
                     "pattern": [
                         {
@@ -62,5 +61,5 @@
                 }
             ]
         }
-	]
+    ]
 }
